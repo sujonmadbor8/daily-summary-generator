@@ -37,8 +37,20 @@
         <pre id="summaryOutput"></pre>
 
         <div id="copyWrapper" style="display: none">
-          <button id="copySummary">Copy Summary</button>
-          <span id="tooltip" class="tooltip">Copied!</span>
+          <div class="button-group">
+            <div class="btn-with-tooltip">
+              <button id="copySummary" class="action-btn green">
+                Copy Summary
+              </button>
+              <span class="tooltip">Copied!</span>
+            </div>
+            <div class="btn-with-tooltip">
+              <button id="clearSummary" class="action-btn red">
+                Clear Summary
+              </button>
+              <span class="tooltip">Cleared!</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

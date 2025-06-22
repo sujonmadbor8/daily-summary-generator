@@ -2,13 +2,23 @@ const addSummaryBtn = document.getElementById("addSummary");
 const summaryOutput = document.getElementById("summaryOutput");
 const copyWrapper = document.getElementById("copyWrapper");
 const copyBtn = document.getElementById("copySummary");
-const clientInput = document.getElementById("clientName");
+const clearBtn = document.getElementById("clearSummary");
 
-// Enable "Add to Summary" only when client name is entered
+const clientInput = document.getElementById("clientName");
 const websiteInput = document.getElementById("website");
 const noteInput = document.getElementById("note");
 
-// Function to check if all fields are filled
+// Load from localStorage on page load
+window.addEventListener("DOMContentLoaded", () => {
+  const savedSummary = localStorage.getItem("dailySummary");
+  if (savedSummary) {
+    summaryOutput.textContent = savedSummary;
+    copyWrapper.style.display = "inline-block";
+  }
+  checkFormValidity();
+});
+
+// Enable/disable Add button based on inputs
 function checkFormValidity() {
   const isValid =
     clientInput.value.trim() !== "" &&
@@ -18,26 +28,35 @@ function checkFormValidity() {
   addSummaryBtn.disabled = !isValid;
 }
 
-// Listen to input changes on all fields
 clientInput.addEventListener("input", checkFormValidity);
 websiteInput.addEventListener("input", checkFormValidity);
 noteInput.addEventListener("input", checkFormValidity);
 
+// Format date
 function getFormattedDate() {
   const today = new Date();
   const options = { day: "2-digit", month: "long", year: "numeric" };
   return today.toLocaleDateString("en-GB", options);
 }
 
+// Utility function to show tooltip on button container
+function showTooltip(buttonContainer, timeout = 1500) {
+  buttonContainer.classList.add("show-tooltip");
+  setTimeout(() => {
+    buttonContainer.classList.remove("show-tooltip");
+  }, timeout);
+}
+
+// Add summary
 addSummaryBtn.addEventListener("click", () => {
   const client = clientInput.value.trim();
-  let website = document.getElementById("website").value.trim();
-  const note = document.getElementById("note").value.trim();
+  let website = websiteInput.value.trim();
+  const note = noteInput.value.trim();
 
-  if (!client) return;
+  if (!client || !website || !note) return;
 
   website = website.replace(/^https?:\/\//, "");
-  const formattedNote = note ? `( ${note} )` : "";
+  const formattedNote = `( ${note} )`;
   const line = `${client} - ${website} ${formattedNote}`.trim();
 
   if (summaryOutput.textContent.trim() === "") {
@@ -47,29 +66,47 @@ addSummaryBtn.addEventListener("click", () => {
     summaryOutput.textContent += `\n${line}`;
   }
 
-  // Show copy button
+  // Save to localStorage
+  localStorage.setItem("dailySummary", summaryOutput.textContent);
+
+  // Show copy/clear buttons
   copyWrapper.style.display = "inline-block";
 
-  // Clear inputs
+  // Clear inputs & disable add button
   clientInput.value = "";
-  document.getElementById("website").value = "";
-  document.getElementById("note").value = "";
+  websiteInput.value = "";
+  noteInput.value = "";
   addSummaryBtn.disabled = true;
 });
 
+// Copy to clipboard
 copyBtn.addEventListener("click", () => {
   const text = summaryOutput.textContent.trim();
-  if (!text) return alert("Nothing to copy!");
+  if (!text) {
+    // Show tooltip on Copy button for "Nothing to copy"
+    showTooltip(copyBtn.parentElement, 2000);
+    return;
+  }
 
   navigator.clipboard
     .writeText(text)
     .then(() => {
-      copyWrapper.classList.add("show-tooltip");
-      setTimeout(() => {
-        copyWrapper.classList.remove("show-tooltip");
-      }, 1500);
+      showTooltip(copyBtn.parentElement);
     })
     .catch(() => {
-      alert("Copy failed");
+      showTooltip(copyBtn.parentElement);
     });
+});
+
+// Clear Summary with tooltip instead of confirm alert
+clearBtn.addEventListener("click", () => {
+  if (summaryOutput.textContent.trim() === "") {
+    // Show tooltip if summary already empty
+    showTooltip(clearBtn.parentElement, 2000);
+    return;
+  }
+  localStorage.removeItem("dailySummary");
+  summaryOutput.textContent = "";
+  copyWrapper.style.display = "none";
+  showTooltip(clearBtn.parentElement);
 });

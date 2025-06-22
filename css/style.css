@@ -132,3 +132,22 @@ pre {
   visibility: visible;
   opacity: 1;
 }
+
+/* add or remove  */
+
+button#addClientBtn,
+button.removeBtn {
+  font-size: 14px;
+  padding: 5px;
+  width: 90px;
+  margin-bottom: 15px;
+  margin-top: -15px;
+}
+
+button.removeBtn {
+  background-color: #dc3545;
+  margin-top: -5px;
+}
+button.removeBtn:hover {
+  background-color: #c82333;
+}

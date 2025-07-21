@@ -151,3 +151,8 @@ button.removeBtn {
 button.removeBtn:hover {
   background-color: #c82333;
 }
+
+.summary-header {
+  font-weight: 600;
+  font-size: 15px;
+}

@@ -1,2 +1,2 @@
-------->>> Daily-summary-generator test
+------->>> Daily-summary-generator
 https://sujonmadbor8.github.io/daily-summary-generator/

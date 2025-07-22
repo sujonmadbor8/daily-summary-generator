@@ -8,40 +8,41 @@ body {
 .daily_summary_container {
   background: white;
   border-radius: 8px;
-  margin: 50px;
+  margin: 50px auto;
   padding: 30px;
-  width: 100%;
   max-width: 600px;
+  width: 100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
 }
 
-h1,
-h2 {
+.daily_summary_container h1,
+.daily_summary_container h2 {
   text-align: center;
   color: #333;
 }
 
-.client-group {
+.daily_summary_container .client-group {
   padding: 15px;
   background: #f1f1f1;
   margin-bottom: 15px;
   border-radius: 6px;
 }
 
-.form-group {
+.daily_summary_container .form-group {
   margin-bottom: 15px;
 }
-.client-group .form-group:last-of-type {
+.daily_summary_container .form-group:last-of-type {
   margin-bottom: 0;
 }
 
-label {
+.daily_summary_container label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.form-group input {
+.daily_summary_container input[type="text"] {
   width: 96%;
   padding: 10px;
   font-size: 16px;
@@ -49,14 +50,7 @@ label {
   border: 1px solid #ccc;
 }
 
-#addSummary:disabled {
-  background-color: #ccc;
-  color: #666;
-  cursor: not-allowed;
-}
-
-button {
-  width: 100%;
+.daily_summary_container button {
   padding: 12px;
   font-size: 16px;
   background-color: #007bff;
@@ -64,39 +58,37 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
 }
 
-.output {
+.daily_summary_container button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.daily_summary_container .output {
   margin-top: 30px;
   background: #f1f1f1;
   padding: 30px 20px;
   border-radius: 6px;
 }
-.output h2 {
+.daily_summary_container .output h2 {
   margin-top: 0;
 }
 
-pre {
+.daily_summary_container pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
 
-/* Button Group */
-
-.button-group {
+.daily_summary_container .button-group {
   display: flex;
   gap: 10px;
   margin-top: 20px;
 }
 
-/* Tooltip */
-
-.btn-with-tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.action-btn {
+.daily_summary_container .action-btn {
   padding: 10px 16px;
   font-size: 16px;
   border: none;
@@ -107,24 +99,24 @@ pre {
   width: auto;
   min-width: 120px;
 }
-
-.action-btn.green {
+.daily_summary_container .action-btn.green {
   background-color: #28a745;
 }
-
-.action-btn.green:hover {
+.daily_summary_container .action-btn.green:hover {
   background-color: #218838;
 }
-
-.action-btn.red {
+.daily_summary_container .action-btn.red {
   background-color: #dc3545;
 }
-
-.action-btn.red:hover {
+.daily_summary_container .action-btn.red:hover {
   background-color: #c82333;
 }
 
-.tooltip {
+.daily_summary_container .btn-with-tooltip {
+  position: relative;
+  display: inline-block;
+}
+.daily_summary_container .tooltip {
   visibility: hidden;
   opacity: 0;
   position: absolute;
@@ -140,34 +132,30 @@ pre {
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
-
-.btn-with-tooltip.show-tooltip .tooltip {
+.daily_summary_container .btn-with-tooltip.show-tooltip .tooltip {
   visibility: visible;
   opacity: 1;
 }
 
-/* add or remove  */
-button#addClientBtn {
-  margin-bottom: 15px;
-  margin-top: -5px;
-}
-
-button#addClientBtn,
-button.removeBtn {
+.daily_summary_container #addClientBtn {
+  margin: -5px 0 15px;
   font-size: 14px;
   padding: 5px;
   width: 90px;
 }
 
-button.removeBtn {
+.daily_summary_container .removeBtn {
   background-color: #dc3545;
   margin-top: 10px;
+  font-size: 14px;
+  padding: 5px;
+  width: 90px;
 }
-button.removeBtn:hover {
+.daily_summary_container .removeBtn:hover {
   background-color: #c82333;
 }
 
-.summary-header {
+.daily_summary_container .summary-header {
   font-weight: bold;
   font-size: 16px;
   color: #333;

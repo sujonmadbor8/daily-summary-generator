@@ -24,6 +24,12 @@ h2 {
 .form-group {
   margin-bottom: 15px;
 }
+.client-group {
+  padding: 15px;
+  background: #f1f1f1;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
 
 label {
   display: block;
@@ -31,8 +37,8 @@ label {
   margin-bottom: 5px;
 }
 
-input {
-  width: 100%;
+.form-group input {
+  width: 96%;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;

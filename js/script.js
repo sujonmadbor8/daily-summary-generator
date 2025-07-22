@@ -81,7 +81,7 @@ addSummaryBtn.addEventListener("click", () => {
     if (!name || !website || !note) return;
 
     website = website.replace(/^https?:\/\//, "");
-    const line = `${name} - ${website} ( ${note} )`;
+    const line = `${lines.length + 1}. ${name} - ${website} ( ${note} )`;
     lines.push(line);
   });
 

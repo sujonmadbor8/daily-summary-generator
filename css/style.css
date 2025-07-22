@@ -21,14 +21,18 @@ h2 {
   color: #333;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
 .client-group {
   padding: 15px;
   background: #f1f1f1;
   margin-bottom: 15px;
   border-radius: 6px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+.client-group .form-group:last-of-type {
+  margin-bottom: 0;
 }
 
 label {
@@ -145,6 +149,7 @@ pre {
 /* add or remove  */
 button#addClientBtn {
   margin-bottom: 15px;
+  margin-top: -5px;
 }
 
 button#addClientBtn,
@@ -152,12 +157,11 @@ button.removeBtn {
   font-size: 14px;
   padding: 5px;
   width: 90px;
-  margin-top: -15px;
 }
 
 button.removeBtn {
   background-color: #dc3545;
-  margin-top: -5px;
+  margin-top: 10px;
 }
 button.removeBtn:hover {
   background-color: #c82333;

@@ -31,7 +31,7 @@ function validateInputs() {
       websites[i].value.trim() &&
       notes[i].value.trim()
     ) {
-      // do nothing
+      // valid
     } else {
       isValid = false;
     }
@@ -87,15 +87,15 @@ addSummaryBtn.addEventListener("click", () => {
 
   if (lines.length === 0 || !mainUsername) return;
 
-  const dateHeader = `<div class="summary-header">${mainUsername} → Daily Summary ${getFormattedDate()} \n—--------------------------------------</div>`;
-  const fullText = `${dateHeader}\n${lines.join("\n")}`;
+  const dateHeader = `<div class="summary-header">${mainUsername} → Daily Summary ${getFormattedDate()}<br>----------------------------------------</div>`;
+  const fullText = `${dateHeader}\n\n${lines.join("\n")}`;
 
   summaryOutput.innerHTML = fullText;
 
   localStorage.setItem("dailySummary", fullText);
   copyWrapper.style.display = "flex";
 
-  // Reset
+  // Reset form
   document.getElementById("mainUsername").value = "";
   clientFieldsContainer
     .querySelectorAll(".client-group")
@@ -129,7 +129,7 @@ clearBtn.addEventListener("click", () => {
 window.addEventListener("DOMContentLoaded", () => {
   const savedSummary = localStorage.getItem("dailySummary");
   if (savedSummary) {
-    summaryOutput.textContent = savedSummary;
+    summaryOutput.innerHTML = savedSummary;
     copyWrapper.style.display = "flex";
   }
 });

@@ -65,8 +65,11 @@ button {
 .output {
   margin-top: 30px;
   background: #f1f1f1;
-  padding: 20px;
+  padding: 30px 20px;
   border-radius: 6px;
+}
+.output h2 {
+  margin-top: 0;
 }
 
 pre {
@@ -79,7 +82,7 @@ pre {
 .button-group {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 /* Tooltip */
@@ -159,6 +162,8 @@ button.removeBtn:hover {
 }
 
 .summary-header {
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: -20px;
 }

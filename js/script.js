@@ -5,6 +5,7 @@ const copyWrapper = document.getElementById("copyWrapper");
 const copyBtn = document.getElementById("copySummary");
 const clearBtn = document.getElementById("clearSummary");
 const clientFieldsContainer = document.getElementById("clientFieldsContainer");
+const usernameInput = document.getElementById("mainUsername");
 
 function getFormattedDate() {
   const today = new Date();
@@ -21,7 +22,7 @@ function validateInputs() {
   const clientNames = document.querySelectorAll(".clientName");
   const notes = document.querySelectorAll(".note");
   const websites = document.querySelectorAll(".website");
-  const mainUsername = document.getElementById("mainUsername").value.trim();
+  const mainUsername = usernameInput.value.trim();
 
   let isValid = !!mainUsername;
 
@@ -69,7 +70,11 @@ addSummaryBtn.addEventListener("click", () => {
   const clientNames = document.querySelectorAll(".clientName");
   const notes = document.querySelectorAll(".note");
   const websites = document.querySelectorAll(".website");
-  const mainUsername = document.getElementById("mainUsername").value.trim();
+  const mainUsername = usernameInput.value.trim();
+
+  if (mainUsername) {
+    localStorage.setItem("savedUsername", mainUsername);
+  }
 
   let lines = [];
 
@@ -88,15 +93,16 @@ addSummaryBtn.addEventListener("click", () => {
   if (lines.length === 0 || !mainUsername) return;
 
   const dateHeader = `<div class="summary-header">${mainUsername} → Daily Summary ${getFormattedDate()}<br>----------------------------------------</div>`;
-  const fullText = `${dateHeader}\n\n${lines.join("\n")}`;
+  const fullText = `${dateHeader}${
+    lines.length ? "\n" + lines.join("\n") : ""
+  }`;
 
   summaryOutput.innerHTML = fullText;
 
   localStorage.setItem("dailySummary", fullText);
   copyWrapper.style.display = "flex";
 
-  // Reset form
-  document.getElementById("mainUsername").value = "";
+  usernameInput.value = "";
   clientFieldsContainer
     .querySelectorAll(".client-group")
     .forEach((group, i) => {
@@ -112,9 +118,16 @@ addSummaryBtn.addEventListener("click", () => {
 });
 
 copyBtn.addEventListener("click", () => {
-  const text = summaryOutput.textContent.trim();
-  if (!text) return;
-  navigator.clipboard.writeText(text).then(() => {
+  const html = localStorage.getItem("dailySummary");
+  if (!html) return;
+
+  const plainText = html
+    .replace(/<div[^>]*>/g, "")
+    .replace(/<\/div>/g, "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .trim();
+
+  navigator.clipboard.writeText(plainText).then(() => {
     showTooltip(copyBtn.parentElement);
   });
 });
@@ -128,8 +141,15 @@ clearBtn.addEventListener("click", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
   const savedSummary = localStorage.getItem("dailySummary");
+  const savedUsername = localStorage.getItem("savedUsername");
+
   if (savedSummary) {
     summaryOutput.innerHTML = savedSummary;
     copyWrapper.style.display = "flex";
+  }
+
+  if (savedUsername) {
+    usernameInput.value = savedUsername;
+    validateInputs();
   }
 });
